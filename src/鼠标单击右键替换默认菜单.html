@@ -26,8 +26,8 @@
   </style>
   <script>
     window.onload = function () {
-      var el = document.getElementById("container");
-      var oMenu = document.getElementById("menu");
+      let el = document.getElementById("container");
+      let oMenu = document.getElementById("menu");
       //鼠标按键抬起
       el.addEventListener("mouseup",(event)=>{
         event.preventDefault()
@@ -39,7 +39,7 @@
         // console.log(event)
         if (event.button === 2) {
           event.preventDefault();
-          var _x = event.clientX,
+          let _x = event.clientX,
             _y = event.clientY;
           oMenu.style.display = "block";
           oMenu.style.left = _x + "px";
@@ -47,12 +47,16 @@
         }
       })
     }
+    //data-ceshi绑定数据，可给事件传递参数
+    function demo(event) {
+      console.log(event.target.attributes['data-ceshi'].value)
+    }
   </script>
 </head>
 <body>
 <div id="container">
   <div id="menu">
-    <div onclick="alert('选项1')">选项1</div>
+    <div data-ceshi="123" onclick="demo(event)">选项1</div>
     <div onclick="alert('选项2')">选项2</div>
     <div onclick="alert('选项3')">选项3</div>
   </div>

@@ -20,14 +20,14 @@
 </head>
 <script type="text/javascript">
   window.onload = function () {
-    var oDiv = document.getElementById("div1");
-    var aImg = oDiv.getElementsByTagName("img");
+    let oDiv = document.getElementById("div1");
+    let aImg = oDiv.getElementsByTagName("img");
     document.onmousemove = function (event) {
       //因为鼠标是到可视区的距离，所以，我们应该获取鼠标到可视区的距离-元素到可视区的距离
-      for (var i = 0; i < aImg.length; i++) {
-        var b = Math.abs(event.clientX - aImg[i].getBoundingClientRect().x - aImg[i].offsetWidth / 2);
-        var a = Math.abs(event.clientY - aImg[i].getBoundingClientRect().y - aImg[i].offsetHeight / 2);
-        var c = Math.sqrt(a * a + b * b);
+      for (let i = 0; i < aImg.length; i++) {
+        let b = Math.abs(event.clientX - aImg[i].getBoundingClientRect().x - aImg[i].offsetWidth / 2);
+        let a = Math.abs(event.clientY - aImg[i].getBoundingClientRect().y - aImg[i].offsetHeight / 2);
+        let c = Math.sqrt(a * a + b * b);
         //getBoundingClientRect()是获取元素上下左右的值
         if (c > 200) {
           c = 200;
