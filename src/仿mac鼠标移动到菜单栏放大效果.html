@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>仿mac鼠标移动到菜单栏放大效果</title>
+  <style type="text/css">
+    #div1 {
+      width: 100%;
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      text-align: center;
+    }
+
+    #div1 img {
+      width: 64px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<script type="text/javascript">
+  window.onload = function () {
+    var oDiv = document.getElementById("div1");
+    var aImg = oDiv.getElementsByTagName("img");
+    document.onmousemove = function (event) {
+      //因为鼠标是到可视区的距离，所以，我们应该获取鼠标到可视区的距离-元素到可视区的距离
+      for (var i = 0; i < aImg.length; i++) {
+        var b = Math.abs(event.clientX - aImg[i].getBoundingClientRect().x - aImg[i].offsetWidth / 2);
+        var a = Math.abs(event.clientY - aImg[i].getBoundingClientRect().y - aImg[i].offsetHeight / 2);
+        var c = Math.sqrt(a * a + b * b);
+        //getBoundingClientRect()是获取元素上下左右的值
+        if (c > 200) {
+          c = 200;
+        }
+        aImg[i].style.width = 124 - (c * 0.3) + 'px';
+      }
+    }
+  }
+</script>
+<body>
+<div id="div1">
+  <img src="img/magnify-img/1.png"/>
+  <img src="img/magnify-img/2.png"/>
+  <img src="img/magnify-img/3.png"/>
+  <img src="img/magnify-img/4.png"/>
+  <img src="img/magnify-img/5.png"/>
+</div>
+</body>
+</html>
