@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>鼠标描绘矩形</title>
+  <style>
+    #container {
+      /*margin-top: 200px;*/
+      height: 500px;
+      border: 1px #000 solid;
+      box-sizing: border-box;
+      position: relative;
+
+    }
+  </style>
+  <script>
+    let moveX = 0
+    let moveY = 0
+    let startX, startY, endX, endY
+    window.onload = function () {
+      let el = document.getElementById("container")
+
+      function move(event) {
+        console.log(event)
+        let node = document.getElementById("box")
+        // console.log("event.x - startX" ,event.x - startX)
+        // console.log("event.y - startY",event.y - startY)
+        moveX += event.movementX
+        moveY += event.movementY
+        console.log(moveX)
+        console.log(moveY)
+        //如果描绘的是从上往下'\'
+        if (moveX > 0 && moveY > 0) {
+          node.style = `
+          width: ${moveX}px;
+          height: ${moveY}px;
+          border: 1px #000 solid;
+          position: absolute;
+          left: ${startX}px;
+          top: ${startY}px;
+        `
+          //如果是从下往上'/'
+        } else if (moveX > 0 && moveY < 0) {
+          node.style = `
+          width: ${moveX}px;
+          height: ${Math.abs(moveY)}px;
+          border: 1px #000 solid;
+          position: absolute;
+          left: ${startX}px;
+          bottom: ${500 - startY}px;
+        `
+          //如果是从上往下'/'
+        } else if (moveX < 0 && moveY > 0) {
+          node.style = `
+          width: ${Math.abs(moveX)}px;
+          height: ${moveY}px;
+          border: 1px #000 solid;
+          position: absolute;
+          right: ${el.offsetWidth - startX}px;
+          top: ${startY}px;
+        `
+          //如果是从下往上'\'
+        } else if (moveX < 0 && moveY < 0) {
+          node.style = `
+          width: ${Math.abs(moveX)}px;
+          height: ${Math.abs(moveY)}px;
+          border: 1px #000 solid;
+          position: absolute;
+          right: ${el.offsetWidth - startX}px;
+          bottom: ${500 - startY}px;
+        `
+        }
+
+      }
+
+      el.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        let box = document.createElement("div")
+        box.id = "box"
+        el.appendChild(box)
+        startX = e.offsetX
+        startY = e.offsetY
+        console.log("点击")
+        console.log(e)
+        el.addEventListener("mousemove", move)
+      })
+      document.addEventListener("mouseup", (e) => {
+        console.log("松开")
+        moveX = 0
+        moveY = 0
+        el.removeChild(el.childNodes[0])
+        el.removeEventListener("mousemove", move)
+      })
+    }
+  </script>
+</head>
+<body>
+<div id="container">
+
+</div>
+</body>
+</html>
